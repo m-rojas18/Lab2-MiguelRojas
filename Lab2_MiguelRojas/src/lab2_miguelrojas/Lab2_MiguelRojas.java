@@ -1,6 +1,6 @@
 package lab2_miguelrojas;
 
-import java.security.acl.Owner;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,6 +13,11 @@ public class Lab2_MiguelRojas {
         boolean login = false;
         
         ArrayList<Casa> lista_casas = new ArrayList();
+        
+        Casa c0 = new Casa(1215, 4, "Rojo", 100,100, "Si", 2, 4, 6, "Miguel Rojas", "Lista", "Ing. Tabora");
+        Casa c1 = new Casa(1800, 5, "Blanca", 150, 150, "No", 1, 2, 3, "Sin Dueño", "Construccion", "Ing. Montoya");
+        lista_casas.add(c0);
+        lista_casas.add(c1);
         while(resp == 's'){
             System.out.print("Menu\n"
                     + "[1] Registro Casas\n"
@@ -151,7 +156,7 @@ public class Lab2_MiguelRojas {
                                         Casa c = lista_casas.get(i);
                                         casas += "[" + i + "] " + "Numero de Casa: " + c.getNumero_casa() 
                                                 + ", Dueño de Casa: " + c.getNombre_dueno() 
-                                                + ",Estado: "+c.getEstado() + "\n";
+                                                + ", Estado: "+c.getEstado() + "\n";
                                     }
                                     
                                     System.out.print("Listado de Casas\n"
