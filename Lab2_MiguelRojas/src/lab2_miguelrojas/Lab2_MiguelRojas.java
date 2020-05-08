@@ -1,24 +1,23 @@
 package lab2_miguelrojas;
 
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Lab2_MiguelRojas {
 
     public static void main(String[] args) {
-        
+
         Scanner sc = new Scanner(System.in);
         char resp = 's';
         boolean login = false;
-        
+
         ArrayList<Casa> lista_casas = new ArrayList();
-        
-        Casa c0 = new Casa(1215, 4, "Rojo", 100,100, "Si", 2, 4, 6, "Miguel Rojas", "Lista", "Ing. Tabora");
+
+        Casa c0 = new Casa(1215, 4, "Rojo", 100, 100, "Si", 2, 4, 6, "Miguel Rojas", "Lista", "Ing. Tabora");
         Casa c1 = new Casa(1800, 5, "Blanca", 150, 150, "No", 1, 2, 3, "Sin Dueño", "Construccion", "Ing. Montoya");
         lista_casas.add(c0);
         lista_casas.add(c1);
-        while(resp == 's'){
+        while (resp == 's') {
             System.out.print("Menu\n"
                     + "[1] Registro Casas\n"
                     + "[2] Manejo de Estados\n"
@@ -28,15 +27,15 @@ public class Lab2_MiguelRojas {
             int opcion = sc.nextInt();
             sc = new Scanner(System.in);
             System.out.println();
-            switch(opcion){
+            switch (opcion) {
                 case 1:
                     //Validar el login
                     if (login == false) {
                         System.out.print("Debe ingresar a su cuenta para poder acceder a esta funcion.");
-                    } else{
+                    } else {
                         //TO DO: Menu Registro de Casas
                         boolean flag_menu2 = true;
-                        while(flag_menu2){
+                        while (flag_menu2) {
                             System.out.print("Menu---Registro Casas\n"
                                     + "[1] Crear Casas\n"
                                     + "[2] Listar Casas\n"
@@ -47,7 +46,7 @@ public class Lab2_MiguelRojas {
                             int opcion_m2 = sc.nextInt();
                             sc = new Scanner(System.in);
                             System.out.println();
-                            switch(opcion_m2){
+                            switch (opcion_m2) {
                                 case 1:
                                     //Ingreso de Datos para una Casa
                                     //Numero de Casa
@@ -105,16 +104,16 @@ public class Lab2_MiguelRojas {
                                     }
                                     //Estado
                                     boolean flag_estado = true;
-                                    String estado_casa= "";
-                                    while (flag_estado) {                                        
+                                    String estado_casa = "";
+                                    while (flag_estado) {
                                         System.out.print("Estado de la Casa\n"
-                                            + "[1] Lista\n"
-                                            + "[2] Construcción\n"
-                                            + "[3] Construcción en Espera\n"
-                                            + "[4] Espera de Demolición\n"
-                                            + "Eliga estado de la casa: ");
+                                                + "[1] Lista\n"
+                                                + "[2] Construcción\n"
+                                                + "[3] Construcción en Espera\n"
+                                                + "[4] Espera de Demolición\n"
+                                                + "Eliga estado de la casa: ");
                                         int op_estado = sc.nextInt();
-                                        switch(op_estado){
+                                        switch (op_estado) {
                                             case 1:
                                                 //Estado Lista //ArrayList Despues
                                                 estado_casa = "Lista";
@@ -139,14 +138,14 @@ public class Lab2_MiguelRojas {
                                                 System.out.println("Ingrese una opcion valida.");
                                         }
                                     }
-                                    
+
                                     //Nombre del Ingeniero
                                     System.out.print("Ingrese el nombre del ingeniero a cargo de la casa: ");
                                     String nombre_ing = sc.nextLine();
                                     sc = new Scanner(System.in);
                                     //Agregar Casa a Lista
-                                    lista_casas.add(new Casa(num_casa, num_bloque,color_casa, 
-                                            ancho, largo, casa_compra, num_pisos, num_banos, 
+                                    lista_casas.add(new Casa(num_casa, num_bloque, color_casa,
+                                            ancho, largo, casa_compra, num_pisos, num_banos,
                                             num_cuartos, owner_casa, estado_casa, nombre_ing));
                                     System.out.println("Se creo la Casa con exito!!");
                                     break;
@@ -154,17 +153,45 @@ public class Lab2_MiguelRojas {
                                     String casas = "";
                                     for (int i = 0; i < lista_casas.size(); i++) {
                                         Casa c = lista_casas.get(i);
-                                        casas += "[" + i + "] " + "Numero de Casa: " + c.getNumero_casa() 
-                                                + ", Dueño de Casa: " + c.getNombre_dueno() 
-                                                + ", Estado: "+c.getEstado() + "\n";
+                                        casas += "[" + i + "] " + "Numero de Casa: " + c.getNumero_casa()
+                                                + ", Dueño de Casa: " + c.getNombre_dueno()
+                                                + ", Estado: " + c.getEstado() + "\n";
                                     }
-                                    
+
                                     System.out.print("Listado de Casas\n"
                                             + casas);
+                                    System.out.println();
                                     break;
                                 case 3:
                                     break;
                                 case 4:
+                                    if (lista_casas.isEmpty()) {
+                                        System.out.println("No existe ninguna casa.");
+                                    } else {
+                                        String casas_elim = "";
+                                        for (int i = 0; i < lista_casas.size(); i++) {
+                                            Casa c = lista_casas.get(i);
+                                            casas_elim += "[" + i + "] " + "Numero de Casa: " + c.getNumero_casa()
+                                                    + ", Dueño de Casa: " + c.getNombre_dueno()
+                                                    + ", Estado: " + c.getEstado() + "\n";
+                                        }
+                                        
+                                        System.out.print(casas_elim + "\n"
+                                                + "Seleccion casa a eliminar: ");
+                                        int op_elim = sc.nextInt();
+                                        sc = new Scanner(System.in);
+                                        System.out.print("Eliminar\n"
+                                                + "[1] Si\n"
+                                                + "[2] No\n"
+                                                + "Seguro? : ");
+                                        int elim = sc.nextInt();
+                                        if (elim == 1) {
+                                            lista_casas.remove(op_elim);
+                                            System.out.println("Se elimino con exito la casa.\n");
+                                        } else {
+                                            System.out.println("No se elimino la casa.\n");
+                                        }
+                                    }
                                     break;
                                 case 5:
                                     flag_menu2 = false;
@@ -174,7 +201,7 @@ public class Lab2_MiguelRojas {
                             }
                         }
                     }
-                    
+
                     break;
                 case 2:
                     //Validar el login
@@ -187,7 +214,7 @@ public class Lab2_MiguelRojas {
                 case 3:
                     //Verificar el usuario
                     System.out.print("Ingrese su usuario: ");
-                    String user  = sc.next();
+                    String user = sc.next();
                     sc = new Scanner(System.in);
                     if (user.equals("leobanegas")) {
                         //Verificar la Contraseña
@@ -214,5 +241,5 @@ public class Lab2_MiguelRojas {
             }
         }
     }
-    
+
 }
