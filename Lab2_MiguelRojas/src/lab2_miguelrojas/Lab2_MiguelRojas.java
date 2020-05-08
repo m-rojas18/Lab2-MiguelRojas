@@ -17,12 +17,28 @@ public class Lab2_MiguelRojas {
         ArrayList<Casa> casas_EsperaConst = new ArrayList();//Lista de Casas en Espera de Construccion
         ArrayList<Casa> casas_EsperaDeml = new ArrayList(); //Lista de Casas en Espera de Demolicion
 
-        Casa c0 = new Casa(1215, 4, "Rojo", 100, 100, "Si", 2, 4, 6, "Miguel Rojas", "Lista", "Ing. Tabora");
+        //Casas Creadas
+        /*Casa c0 = new Casa(1215, 4, "Rojo", 100, 100, "Si", 2, 4, 6, "Miguel Rojas", "Lista", "Ing. Tabora");
         Casa c1 = new Casa(1800, 5, "Blanca", 150, 150, "No", 1, 2, 3, "Sin Dueño", "Construccion", "Ing. Montoya");
+        Casa c2 = new Casa(5432, 27, "Amarilla", 300, 300, "No", 2, 3, 5 ,"Sin Dueño", "Espera de Demolicion", "Ing. Moran");
+        Casa c3 = new Casa(1234, 23, "Verde", 300, 400, " Si", 4 , 5, 5, "Monica Flores", "Construccion en Espera" , "Ing. Herrera");
+        Casa c4 = new Casa(9870, 24,"Negra", 350, 320, "Si", 4, 6 ,5, "Jose Tabora", "Construccion", "Ing. Rojas");
+        Casa c5 = new Casa(0001, 26, "Blanca", 350, 350, "Si", 5, 5,5, "Daniel Montoya", "Espera de Demolicion", "Ing. Stark");
+        
         lista_general.add(c0);
         lista_general.add(c1);
-        casas_listas.add(c0);
+        lista_general.add(c2);
+        lista_general.add(c3);
+        lista_general.add(c4);
+        lista_general.add(c5);
+        
         casas_construccion.add(c1);
+        casas_listas.add(c0);
+        casas_EsperaConst.add(c3);
+        casas_construccion.add(c4);
+        casas_EsperaDeml.add(c5);
+        casas_EsperaDeml.add(c2);*/
+        
         while (resp == 's') {
             System.out.print("Menu\n"
                     + "[1] Registro Casas\n"
@@ -37,7 +53,7 @@ public class Lab2_MiguelRojas {
                 case 1:
                     //Validar el login
                     if (login == false) {
-                        System.out.print("Debe ingresar a su cuenta para poder acceder a esta funcion.");
+                        System.out.print("Debe ingresar a su cuenta para poder acceder a esta funcion.\n\n");
                     } else {
                         //TO DO: Menu Registro de Casas
                         boolean flag_menu2 = true;
@@ -104,6 +120,7 @@ public class Lab2_MiguelRojas {
                                     if (casa_compra.equals("Si")) {
                                         System.out.print("Ingrese nombre del dueño de la casa: ");
                                         owner_casa = sc.nextLine();
+                                        owner_casa = sc.nextLine();
                                         sc = new Scanner(System.in);
                                     } else {
                                         owner_casa = "Sin dueño";
@@ -148,6 +165,7 @@ public class Lab2_MiguelRojas {
                                     //Nombre del Ingeniero
                                     System.out.print("Ingrese el nombre del ingeniero a cargo de la casa: ");
                                     String nombre_ing = sc.nextLine();
+                                    nombre_ing = sc.nextLine();
                                     sc = new Scanner(System.in);
 
                                     //Crear Objeto
@@ -161,16 +179,16 @@ public class Lab2_MiguelRojas {
                                         lista_general.add(casa_creada);
                                         //Agregar a lista de Casas Listas
                                         casas_listas.add(casa_creada);
-                                        System.out.println("Se creo la Casa con exito!!");
+                                        System.out.println("Se creo la Casa con exito!!\n\n");
                                     }
                                     if (estado_casa.equals("Construccion")) {
                                         //Agregar a Lista de Casas en Construccion
                                         if (casas_construccion.size() < 5) {
                                             casas_construccion.add(casa_creada);
                                             lista_general.add(casa_creada);
-                                            System.out.println("Se creo la Casa con exito!!");
+                                            System.out.println("Se creo la Casa con exito!!\n\n");
                                         } else {
-                                            System.out.println("Ya no se pueden agregar mas Casas en Construccion.");
+                                            System.out.println("Ya no se pueden agregar mas Casas en Construccion.\n\n");
                                         }
                                     }
 
@@ -178,16 +196,16 @@ public class Lab2_MiguelRojas {
                                     if (estado_casa.equals("Construccion en Espera")) {
                                         lista_general.add(casa_creada);
                                         casas_EsperaConst.add(casa_creada);
-                                        System.out.println("Se creo la Casa con exito!!");
+                                        System.out.println("Se creo la Casa con exito!!\n\n");
                                     }
 
                                     if (estado_casa.equals("Espera de Demolicion")) {
                                         if (casas_EsperaDeml.size() < 3) {
                                             casas_EsperaDeml.add(casa_creada);
                                             lista_general.add(casa_creada);
-                                            System.out.println("Se creo la Casa con exito!!");
+                                            System.out.println("Se creo la Casa con exito!!\n\n");
                                         } else {
-                                            System.out.println("Ya no se pueden agregar mas Casas en Espera de Demolicion");
+                                            System.out.println("Ya no se pueden agregar mas Casas en Espera de Demolicion\n\n");
                                         }
                                     }
 
@@ -400,6 +418,24 @@ public class Lab2_MiguelRojas {
                                                 casas_listas.remove(c_elim);
                                                 System.out.println("Se borro con exito la casa.\n");
                                             }
+                                            
+                                            if (c_elim.getEstado().equals("Construccion")) {
+                                                lista_general.remove(op_elim);
+                                                casas_construccion.remove(c_elim);
+                                                System.out.println("Se borro con exito la casa.\n");
+                                            }
+                                            
+                                            if (c_elim.getEstado().equals("Construccion en Espera")) {
+                                                lista_general.remove(op_elim);
+                                                casas_EsperaConst.remove(c_elim);
+                                                System.out.println("Se borro con exito la casa.\n");
+                                            }
+                                            
+                                            if (c_elim.getEstado().equals("Espera de Demolicion")) {
+                                                lista_general.remove(op_elim);
+                                                casas_EsperaDeml.remove(c_elim);
+                                                System.out.println("Se borro con exito la casa.\n");
+                                            }
 
                                         } else {
                                             System.out.println("No se borro la casa.\n");
@@ -419,7 +455,7 @@ public class Lab2_MiguelRojas {
                 case 2:
                     //Validar el login
                     if (login == false) {
-                        System.out.print("Debe ingresar a su cuenta para poder acceder a esta funcion.");
+                        System.out.print("Debe ingresar a su cuenta para poder acceder a esta funcion.\n\n");
                     } else {
                         //TO DO: Menu Manejo de Estados
                         boolean flag_manejoEstado = true;
@@ -514,7 +550,7 @@ public class Lab2_MiguelRojas {
                                                         + "Seleccione una casa a cambiar el estado: ");
                                                 int casa_const_i = sc.nextInt();
                                                 sc = new Scanner(System.in);
-                                                System.out.println("Cambiar estado"
+                                                System.out.println("Cambiar estado\n"
                                                         + "[1] Espera en Construccion\n"
                                                         + "[2] Lista\n"
                                                         + "Eliga una opcion: ");
@@ -659,7 +695,7 @@ public class Lab2_MiguelRojas {
                                     flag_manejoEstado = false;
                                     break;
                                 default:
-                                    System.out.println("Ingrese una opcion valida.");
+                                    System.out.println("Ingrese una opcion valida.\n");
                             }
                         }
 
