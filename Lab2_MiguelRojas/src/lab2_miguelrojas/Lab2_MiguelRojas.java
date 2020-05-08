@@ -163,6 +163,146 @@ public class Lab2_MiguelRojas {
                                     System.out.println();
                                     break;
                                 case 3:
+                                    //Imprimir Casas para poder Seleccionar
+                                    String listar_casas = "";
+                                    for (int i = 0; i < lista_casas.size(); i++) {
+                                        Casa c = lista_casas.get(i);
+                                        listar_casas += "[" + i + "] " + "Numero de Casa: " + c.getNumero_casa()
+                                                + ", Dueño de Casa: " + c.getNombre_dueno()
+                                                + ", Estado: " + c.getEstado() + "\n";
+                                    }
+
+                                    System.out.print("---Modificar Casa---\n"
+                                            + listar_casas + "\n"
+                                            + "Seleccione casa a modificar: ");
+                                    int casa_mod = sc.nextInt();
+                                    //Crear Objeto Casa
+                                    Casa c_mod = lista_casas.get(casa_mod);
+                                    boolean flag_mod = true;
+                                    //Menu de Modificacion
+                                    while (flag_mod) {
+                                        System.out.print("---Menu Modificar Casa---\n"
+                                                + "[1] Numero de Casa\n"
+                                                + "[2] Numero de Bloque\n"
+                                                + "[3] Color\n"
+                                                + "[4] Ancho de Casa\n"
+                                                + "[5] Largo de Casa\n"
+                                                + "[6] Estado de Compra\n"
+                                                + "[7] Numero de Pisos\n"
+                                                + "[8] Numero de Baños\n"
+                                                + "[9] Numero de Cuartos\n"
+                                                + "[10] Nombre del dueño\n"
+                                                + "[11] Nombre de Ingeniero\n"
+                                                + "[12] Salir\n"
+                                                + "Seleccione una opcion: ");
+                                        int op_mod = sc.nextInt();
+                                        sc = new Scanner(System.in);
+                                        switch (op_mod) {
+                                            case 1:
+                                                //Numero de casa
+                                                System.out.print("Ingrese nuevo numero de casa: ");
+                                                int num_casaMod = sc.nextInt();
+                                                sc = new Scanner(System.in);
+                                                c_mod.setNumero_casa(num_casaMod);
+                                                System.out.println("Se modifico con exito.\n");
+                                                break;
+                                            case 2:
+                                                //Numero de Bloque
+                                                System.out.print("Ingrese nuevo numero de bloque:  ");
+                                                int num_bloqueMod = sc.nextInt();
+                                                sc = new Scanner(System.in);
+                                                c_mod.setNumero_bloque(num_bloqueMod);
+                                                System.out.println("Se modifico con exito.\n");
+                                                break;
+                                            case 3:
+                                                //Color
+                                                System.out.print("Ingrese nuevo color: ");
+                                                String color_mod = sc.next();
+                                                sc = new Scanner(System.in);
+                                                c_mod.setColor(color_mod);
+                                                System.out.println("Se modifico con exito.\n");
+                                                break;
+                                            case 4:
+                                                //Ancho
+                                                System.out.print("Ingrese nuevo ancho: ");
+                                                int ancho_mod = sc.nextInt();
+                                                sc = new Scanner(System.in);
+                                                c_mod.setAncho(ancho_mod);
+                                                System.out.println("Se modifico con exito.\n");
+                                                break;
+                                            case 5:
+                                                //Largo
+                                                System.out.print("Ingrese nuevo largo: ");
+                                                int largo_mod = sc.nextInt();
+                                                sc = new Scanner(System.in);
+                                                c_mod.setLargo(largo_mod);
+                                                System.out.println("Se modifico con exito.\n");
+                                                break;
+                                            case 6:
+                                                //Comprada
+                                                System.out.print("Estado de Compra\n"
+                                                        + "[1] Comprada\n"
+                                                        + "[2] No Comprada\n"
+                                                        + "Seleccione estado de compra: ");
+                                                int compra_mod = sc.nextInt();
+                                                String comprada_mod = "";
+                                                sc = new Scanner(System.in);
+                                                if (compra_mod == 1) {
+                                                    comprada_mod = "Si";
+                                                } else {
+                                                    comprada_mod = "No";
+                                                    c_mod.setNombre_dueno("Sin Dueño");
+                                                }
+                                                c_mod.setComprada(comprada_mod);
+                                                System.out.println("Se modifico con exito.\n");
+                                                break;
+                                            case 7:
+                                                System.out.print("Ingrese nuevo numero de pisos: ");
+                                                int num_pisosMod = sc.nextInt();
+                                                sc = new Scanner(System.in);
+                                                c_mod.setNumero_pisos(num_pisosMod);
+                                                System.out.println("Se modifico con exito.\n");
+                                                break;
+                                            case 8:
+                                                System.out.print("Ingrese nuevo numero de baños: ");
+                                                int num_banosMod = sc.nextInt();
+                                                sc = new Scanner(System.in);
+                                                c_mod.setNum_bathrooms(num_banosMod);
+                                                System.out.println("Se modifico con exito.\n");
+                                                break;
+                                            case 9:
+                                                System.out.print("Ingrese nuevo numero de cuartos: ");
+                                                int num_cuartosMod = sc.nextInt();
+                                                sc = new Scanner(System.in);
+                                                c_mod.setNumero_cuartos(num_cuartosMod);
+                                                System.out.println("Se modifico con exito.\n");
+                                                break;
+                                            case 10:
+                                                if (c_mod.getComprada().equals("Si")) {
+                                                    System.out.print("Ingrese nombre de nuevo dueño: ");
+                                                    String nombre_duenoMod = sc.nextLine();
+                                                    sc = new Scanner(System.in);
+                                                    c_mod.setNombre_dueno(nombre_duenoMod);
+                                                } else {
+                                                    System.out.println("La casa no esta comprada asi que no hay un dueño.");
+                                                }
+                                                System.out.println("Se modifico con exito.\n");
+                                                break;
+                                            case 11:
+                                                System.out.print("Ingrese nombre del nuevo ingeniero: ");
+                                                String nombre_ingMod = sc.nextLine();
+                                                sc = new Scanner(System.in);
+                                                c_mod.setNombre_ingeniero(nombre_ingMod);
+                                                System.out.println("Se modifico con exito.\n");
+                                                break;
+                                            case 12:
+                                                System.out.println();
+                                                flag_mod = false;
+                                                break;
+                                            default:
+                                                System.out.println("Ingrese una opcion valida.");
+                                        }
+                                    }//Fin While Modificar
                                     break;
                                 case 4:
                                     if (lista_casas.isEmpty()) {
@@ -175,21 +315,21 @@ public class Lab2_MiguelRojas {
                                                     + ", Dueño de Casa: " + c.getNombre_dueno()
                                                     + ", Estado: " + c.getEstado() + "\n";
                                         }
-                                        
+
                                         System.out.print(casas_elim + "\n"
                                                 + "Seleccion casa a eliminar: ");
                                         int op_elim = sc.nextInt();
                                         sc = new Scanner(System.in);
-                                        System.out.print("Eliminar\n"
+                                        System.out.print("Borrar\n"
                                                 + "[1] Si\n"
                                                 + "[2] No\n"
                                                 + "Seguro? : ");
                                         int elim = sc.nextInt();
                                         if (elim == 1) {
                                             lista_casas.remove(op_elim);
-                                            System.out.println("Se elimino con exito la casa.\n");
+                                            System.out.println("Se borro con exito la casa.\n");
                                         } else {
-                                            System.out.println("No se elimino la casa.\n");
+                                            System.out.println("No se borro la casa.\n");
                                         }
                                     }
                                     break;
@@ -221,6 +361,7 @@ public class Lab2_MiguelRojas {
                         System.out.print("Ingrese su contraseña: ");
                         String pw = sc.next();
                         sc = new Scanner(System.in);
+                        System.out.println();
                         if (pw.equals("99")) {
                             System.out.println("Bienvenido Leonardo!!\n"
                                     + "Ya tiene acceso a las funciones del Programa.\n");
