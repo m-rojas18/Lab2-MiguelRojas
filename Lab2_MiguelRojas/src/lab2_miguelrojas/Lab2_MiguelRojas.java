@@ -21,7 +21,7 @@ public class Lab2_MiguelRojas {
             System.out.println();
             switch(opcion){
                 case 1:
-                    System.out.print("Ingrese su usuario: ");
+                    
                     break;
                 case 2:
                     break;
