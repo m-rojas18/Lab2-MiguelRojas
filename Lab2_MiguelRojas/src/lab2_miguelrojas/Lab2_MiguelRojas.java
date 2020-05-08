@@ -11,12 +11,18 @@ public class Lab2_MiguelRojas {
         char resp = 's';
         boolean login = false;
 
-        ArrayList<Casa> lista_casas = new ArrayList();
+        ArrayList<Casa> lista_general = new ArrayList();//Lista de Casas General
+        ArrayList<Casa> casas_listas = new ArrayList();//Lista de Casas Listas
+        ArrayList<Casa> casas_construccion = new ArrayList(); //Lista de Casas en Construccion
+        ArrayList<Casa> casas_EsperaConst = new ArrayList();//Lista de Casas en Espera de Construccion
+        ArrayList<Casa> casas_EsperaDeml = new ArrayList(); //Lista de Casas en Espera de Demolicion
 
         Casa c0 = new Casa(1215, 4, "Rojo", 100, 100, "Si", 2, 4, 6, "Miguel Rojas", "Lista", "Ing. Tabora");
         Casa c1 = new Casa(1800, 5, "Blanca", 150, 150, "No", 1, 2, 3, "Sin Dueño", "Construccion", "Ing. Montoya");
-        lista_casas.add(c0);
-        lista_casas.add(c1);
+        lista_general.add(c0);
+        lista_general.add(c1);
+        casas_listas.add(c0);
+        casas_construccion.add(c1);
         while (resp == 's') {
             System.out.print("Menu\n"
                     + "[1] Registro Casas\n"
@@ -115,22 +121,22 @@ public class Lab2_MiguelRojas {
                                         int op_estado = sc.nextInt();
                                         switch (op_estado) {
                                             case 1:
-                                                //Estado Lista //ArrayList Despues
+                                                //Estado Lista 
                                                 estado_casa = "Lista";
                                                 flag_estado = false;
                                                 break;
                                             case 2:
-                                                //Estado Construccion //ArrayList Despues
+                                                //Estado Construccion
                                                 estado_casa = "Construccion";
                                                 flag_estado = false;
                                                 break;
                                             case 3:
-                                                //Estado Construccion en Espera //ArrayList Despues
+                                                //Estado Construccion en Espera
                                                 estado_casa = "Construccion en Espera";
                                                 flag_estado = false;
                                                 break;
                                             case 4:
-                                                //Estado Espera de Demolicion //ArrayList Despues
+                                                //Estado Espera de Demolicion
                                                 estado_casa = "Espera de Demolicion";
                                                 flag_estado = false;
                                                 break;
@@ -143,30 +149,80 @@ public class Lab2_MiguelRojas {
                                     System.out.print("Ingrese el nombre del ingeniero a cargo de la casa: ");
                                     String nombre_ing = sc.nextLine();
                                     sc = new Scanner(System.in);
-                                    //Agregar Casa a Lista
-                                    lista_casas.add(new Casa(num_casa, num_bloque, color_casa,
+
+                                    //Crear Objeto
+                                    Casa casa_creada = new Casa(num_casa, num_bloque, color_casa,
                                             ancho, largo, casa_compra, num_pisos, num_banos,
-                                            num_cuartos, owner_casa, estado_casa, nombre_ing));
-                                    System.out.println("Se creo la Casa con exito!!");
+                                            num_cuartos, owner_casa, estado_casa, nombre_ing);
+                                    
+                                    //Agregar a lista del Estado
+                                    if (estado_casa.equals("Lista")) {
+                                        //Agregar Casa a Lista General
+                                        lista_general.add(casa_creada);
+                                        //Agregar a lista de Casas Listas
+                                        casas_listas.add(casa_creada);
+                                        System.out.println("Se creo la Casa con exito!!");
+                                    }
+                                    if (estado_casa.equals("Construccion")) {
+                                        //Agregar a Lista de Casas en Construccion
+                                        if (casas_construccion.size() < 5) {
+                                            casas_construccion.add(casa_creada);
+                                            lista_general.add(casa_creada);
+                                            System.out.println("Se creo la Casa con exito!!");
+                                        } else {
+                                            System.out.println("Ya no se pueden agregar mas Casas en Construccion.");
+                                        }
+                                    }
+
+                                    //Agregar a Lista de Casas en Espera de Construccion
+                                    if (estado_casa.equals("Construccion en Espera")) {
+                                        lista_general.add(casa_creada);
+                                        casas_EsperaConst.add(casa_creada);
+                                        System.out.println("Se creo la Casa con exito!!");
+                                    }
+
+                                    if (estado_casa.equals("Espera de Demolicion")) {
+                                        if (casas_EsperaDeml.size() < 3) {
+                                            casas_EsperaDeml.add(casa_creada);
+                                            lista_general.add(casa_creada);
+                                            System.out.println("Se creo la Casa con exito!!");
+                                        } else {
+                                            System.out.println("Ya no se pueden agregar mas Casas en Espera de Demolicion");
+                                        }
+                                    }
+
                                     break;
                                 case 2:
                                     String casas = "";
-                                    for (int i = 0; i < lista_casas.size(); i++) {
-                                        Casa c = lista_casas.get(i);
-                                        casas += "[" + i + "] " + "Numero de Casa: " + c.getNumero_casa()
+                                    for (int i = 0; i < lista_general.size(); i++) {
+                                        Casa c = lista_general.get(i);
+                                        casas += "[" + i + "] " + "Numero de Casa: " + c.getNumero_casa() + "\n"
+                                                + "Numero de Bloque: " + c.getNumero_bloque() + "\n"
+                                                + "Color: " + c.getColor() + "\n"
+                                                + "Ancho: " + c.getAncho() + "\n"
+                                                + "Largo: " + c.getLargo() + "\n"
+                                                + "Comprada: " + c.getComprada() + "\n"
+                                                + "Numero de pisos: " + c.getNumero_pisos() + "\n"
+                                                + "Numero de banos: " + c.getNum_bathrooms() + "\n"
+                                                + "Numero de Cuartos: " + c.getNumero_cuartos() + "\n"
+                                                + "Nombre del Dueño: " + c.getNombre_dueno() + "\n"
+                                                + "Estado: " + c.getEstado() + "\n"
+                                                + "Nombre del Ingeniero: " + c.getNombre_ingeniero() + "\n\n";
+
+                                        /*"[" + i + "] " + "Numero de Casa: " + c.getNumero_casa()
                                                 + ", Dueño de Casa: " + c.getNombre_dueno()
-                                                + ", Estado: " + c.getEstado() + "\n";
+                                                + ", Estado: " + c.getEstado() + "\n";*/
                                     }
 
-                                    System.out.print("Listado de Casas\n"
+                                    System.out.print("---Listado de Casas---\n\n"
                                             + casas);
                                     System.out.println();
                                     break;
                                 case 3:
                                     //Imprimir Casas para poder Seleccionar
                                     String listar_casas = "";
-                                    for (int i = 0; i < lista_casas.size(); i++) {
-                                        Casa c = lista_casas.get(i);
+                                    for (int i = 0; i < lista_general.size(); i++) {
+                                        Casa c = lista_general.get(i);
                                         listar_casas += "[" + i + "] " + "Numero de Casa: " + c.getNumero_casa()
                                                 + ", Dueño de Casa: " + c.getNombre_dueno()
                                                 + ", Estado: " + c.getEstado() + "\n";
@@ -176,11 +232,26 @@ public class Lab2_MiguelRojas {
                                             + listar_casas + "\n"
                                             + "Seleccione casa a modificar: ");
                                     int casa_mod = sc.nextInt();
+                                    sc = new Scanner(System.in);
+                                    System.out.println();
                                     //Crear Objeto Casa
-                                    Casa c_mod = lista_casas.get(casa_mod);
+                                    Casa c_mod = lista_general.get(casa_mod);
                                     boolean flag_mod = true;
-                                    //Menu de Modificacion
                                     while (flag_mod) {
+                                        String casa_modificar = "-----Casa Modificando-----\n\nNumero de Casa: " + c_mod.getNumero_casa() + "\n"
+                                                + "Numero de Bloque: " + c_mod.getNumero_bloque() + "\n"
+                                                + "Color: " + c_mod.getColor() + "\n"
+                                                + "Ancho: " + c_mod.getAncho() + "\n"
+                                                + "Largo: " + c_mod.getLargo() + "\n"
+                                                + "Comprada: " + c_mod.getComprada() + "\n"
+                                                + "Numero de pisos: " + c_mod.getNumero_pisos() + "\n"
+                                                + "Numero de banos: " + c_mod.getNum_bathrooms() + "\n"
+                                                + "Numero de Cuartos: " + c_mod.getNumero_cuartos() + "\n"
+                                                + "Nombre del Dueño: " + c_mod.getNombre_dueno() + "\n"
+                                                + "Estado: " + c_mod.getEstado() + "\n"
+                                                + "Nombre del Ingeniero: " + c_mod.getNombre_ingeniero() + "\n\n";
+                                        System.out.println(casa_modificar);
+                                        //Menu de Modificacion
                                         System.out.print("---Menu Modificar Casa---\n"
                                                 + "[1] Numero de Casa\n"
                                                 + "[2] Numero de Bloque\n"
@@ -197,6 +268,7 @@ public class Lab2_MiguelRojas {
                                                 + "Seleccione una opcion: ");
                                         int op_mod = sc.nextInt();
                                         sc = new Scanner(System.in);
+                                        System.out.println();
                                         switch (op_mod) {
                                             case 1:
                                                 //Numero de casa
@@ -305,12 +377,12 @@ public class Lab2_MiguelRojas {
                                     }//Fin While Modificar
                                     break;
                                 case 4:
-                                    if (lista_casas.isEmpty()) {
+                                    if (lista_general.isEmpty()) {
                                         System.out.println("No existe ninguna casa.");
                                     } else {
                                         String casas_elim = "";
-                                        for (int i = 0; i < lista_casas.size(); i++) {
-                                            Casa c = lista_casas.get(i);
+                                        for (int i = 0; i < lista_general.size(); i++) {
+                                            Casa c = lista_general.get(i);
                                             casas_elim += "[" + i + "] " + "Numero de Casa: " + c.getNumero_casa()
                                                     + ", Dueño de Casa: " + c.getNombre_dueno()
                                                     + ", Estado: " + c.getEstado() + "\n";
@@ -326,7 +398,7 @@ public class Lab2_MiguelRojas {
                                                 + "Seguro? : ");
                                         int elim = sc.nextInt();
                                         if (elim == 1) {
-                                            lista_casas.remove(op_elim);
+                                            lista_general.remove(op_elim);
                                             System.out.println("Se borro con exito la casa.\n");
                                         } else {
                                             System.out.println("No se borro la casa.\n");
@@ -349,8 +421,220 @@ public class Lab2_MiguelRojas {
                         System.out.print("Debe ingresar a su cuenta para poder acceder a esta funcion.");
                     } else {
                         //TO DO: Menu Manejo de Estados
+                        boolean flag_manejoEstado = true;
+                        while (flag_manejoEstado) {
+                            System.out.print("---Menu Manejo de Estado\n"
+                                    + "[1] Cambiar Estados\n"
+                                    + "[2] Salir\n"
+                                    + "Seleccione una opcion: ");
+                            int op_manejo_Estados = sc.nextInt();
+                            sc = new Scanner(System.in);
+                            System.out.println();
+                            switch (op_manejo_Estados) {
+                                case 1:
+                                    System.out.print("Cambiar Estado de Casas\n"
+                                            + "[1] Listas\n"
+                                            + "[2] En Construccion\n"
+                                            + "[3] Construccion en Espera\n"
+                                            + "[4] En Espera de Demolicion\n"
+                                            + "[5] Salir\n"
+                                            + "Seleccione una opcion: ");
+                                    int op_estado = sc.nextInt();
+                                    switch (op_estado) {
+                                        case 1:
+                                            String salida_casasListas = "";
+                                            for (int i = 0; i < casas_listas.size(); i++) {
+                                                Casa cs = casas_listas.get(i);
+                                                salida_casasListas += "[" + i + "] " + "Numero de Casa: " + cs.getNumero_casa()
+                                                        + ", Dueño de Casa: " + cs.getNombre_dueno()
+                                                        + ", Estado: " + cs.getEstado() + "\n";
+                                            }
+
+                                            System.out.print("Casas Lista\n"
+                                                    + salida_casasListas + "\n"
+                                                    + "Seleccione una casa a cambiar el estado:");
+                                            int casa_estado = sc.nextInt();
+                                            sc = new Scanner(System.in);
+                                            System.out.println("Cambiar estado a:'Espera en Demolicion'\n"
+                                                    + "[1] Si\n"
+                                                    + "[2] No\n"
+                                                    + "Eliga una opcion: ");
+                                            int cambiar_casaLista = sc.nextInt();
+                                            sc = new Scanner(System.in);
+                                            if (cambiar_casaLista == 1) {
+
+                                                if (casas_EsperaDeml.size() < 3) {
+                                                    //Cambiar estado de Casa
+                                                    casas_listas.get(casa_estado).setEstado("Espera en Demolicion");
+                                                    //Cambiar a nueva lista
+                                                    casas_EsperaDeml.add(casas_listas.get(casa_estado));
+                                                    //Borrar de Lista previa
+                                                    casas_listas.remove(casa_estado);
+                                                } else {
+                                                    System.out.println("No se realizo el cambio de estado dado q ya existen 3 casas\n"
+                                                            + "en 'Espera en Demolicion'.");
+                                                }
+                                            } else {
+                                                System.out.println("No se realizo el cambio de estado.\n");
+                                            }
+                                            break;
+                                        case 2:
+                                            String salida_casasConst = "";
+                                            for (int i = 0; i < casas_construccion.size(); i++) {
+                                                Casa cc = casas_construccion.get(i);
+                                                salida_casasConst += "[" + i + "] " + "Numero de Casa: " + cc.getNumero_casa()
+                                                        + ", Dueño de Casa: " + cc.getNombre_dueno()
+                                                        + ", Estado: " + cc.getEstado() + "\n";
+                                            }
+
+                                            System.out.print("Casas en Construccion\n"
+                                                    + salida_casasConst + "\n"
+                                                    + "Seleccione una casa a cambiar el estado: ");
+                                            int casa_const_i = sc.nextInt();
+                                            sc = new Scanner(System.in);
+                                            System.out.println("Cambiar estado"
+                                                    + "[1] Espera en Construccion\n"
+                                                    + "[2] Lista\n"
+                                                    + "Eliga una opcion: ");
+                                            int cambio_2 = sc.nextInt();
+                                            sc = new Scanner(System.in);
+
+                                            if (cambio_2 == 1) {
+                                                System.out.print("Realizar cambio de estado?\n"
+                                                        + "[1] Si\n"
+                                                        + "[2] No\n"
+                                                        + "Eliga una opcion");
+                                                int cambio_construccionR = sc.nextInt();
+                                                sc = new Scanner(System.in);
+                                                if (cambio_construccionR == 1) {
+                                                    casas_construccion.get(casa_const_i).setEstado("Construccion en Espera");
+                                                    casas_EsperaConst.add(casas_construccion.get(casa_const_i));
+                                                    casas_construccion.remove(casa_const_i);
+                                                    System.out.println("Se realizo el cambio de estado con exitosamente!!");
+                                                } else {
+                                                    System.out.println("No se realizo el cambio de estado.");
+                                                }
+                                            } else {
+                                                System.out.print("Realizar cambio de estado?\n"
+                                                        + "[1] Si\n"
+                                                        + "[2] No\n"
+                                                        + "Eliga una opcion");
+                                                int cambio_constResp = sc.nextInt();
+                                                sc = new Scanner(System.in);
+                                                if (cambio_constResp == 1) {
+                                                    casas_construccion.get(casa_const_i).setEstado("Lista");
+                                                    casas_listas.add(casas_construccion.get(casa_const_i));
+                                                    casas_construccion.remove(casa_const_i);
+                                                    System.out.println("Se realizo el cambio de estado exitosamente!!");
+                                                } else {
+                                                    System.out.println("No se realizo el cambio de estado.");
+                                                }
+                                            }
+
+                                            break;
+                                        case 3:
+                                            String salida_casasEsperaC = "";
+                                            for (int i = 0; i < casas_EsperaConst.size(); i++) {
+                                                Casa cec = casas_EsperaConst.get(i);
+                                                salida_casasEsperaC += "[" + i + "] " + "Numero de Casa: " + cec.getNumero_casa()
+                                                        + ", Dueño de Casa: " + cec.getNombre_dueno()
+                                                        + ", Estado: " + cec.getEstado() + "\n";
+                                            }
+
+                                            System.out.print("Casas en Espera de Construccion\n"
+                                                    + salida_casasEsperaC + "\n"
+                                                    + "Seleccione una casa a cambiar el estado: ");
+                                            int cec_i = sc.nextInt();
+                                            sc = new Scanner(System.in);
+                                            boolean flag_manejoEDC = true;
+                                            while (flag_manejoEDC) {
+                                                System.out.print("Cambiar estado a: En Construccion\n"
+                                                        + "[1] Si\n"
+                                                        + "[2] No\n"
+                                                        + "Eliga una opcion: ");
+                                                int opcion_cec = sc.nextInt();
+                                                sc = new Scanner(System.in);
+                                                switch (opcion_cec) {
+                                                    case 1:
+                                                        if (casas_construccion.size() < 5) {
+                                                            casas_EsperaConst.get(cec_i).setEstado("Construccion");
+                                                            casas_construccion.add(casas_EsperaConst.get(cec_i));
+                                                            casas_EsperaConst.remove(cec_i);
+                                                            System.out.println("Se realizo el cambio de estado con exito!!");
+                                                        } else {
+                                                            System.out.println("No se pudo realizar el cambio de estado dado que\n"
+                                                                    + "ya existian 5 casas en construccion.");
+                                                        }
+                                                        break;
+                                                    case 2:
+                                                        System.out.println("No se realizo el cambio de estado.\n");
+                                                        break;
+                                                    default:
+                                                        System.out.println("Ingrese una opcion valida.\n");
+                                                }
+                                                break;
+                                            }
+                                        case 4:
+                                            String salida_casasEsperaD = "";
+                                            for (int i = 0; i < casas_EsperaDeml.size(); i++) {
+                                                Casa ced = casas_EsperaDeml.get(i);
+                                                salida_casasEsperaD += "[" + i + "] " + "Numero de Casa: " + ced.getNumero_casa()
+                                                        + ", Dueño de Casa: " + ced.getNombre_dueno()
+                                                        + ", Estado: " + ced.getEstado() + "\n";
+                                            }
+
+                                            System.out.print("Casas en Espera de Demolicion\n"
+                                                    + salida_casasEsperaD + "\n"
+                                                    + "Seleccione una casa: ");
+                                            int ced_i = sc.nextInt();
+                                            sc = new Scanner(System.in);
+
+                                            boolean flag_demoler = true;
+                                            while (flag_demoler) {
+                                                System.out.print("Desea demoler esa casa?\n"
+                                                        + "[1] Si\n"
+                                                        + "[2] No\n"
+                                                        + "Eliga una opcion: ");
+                                                int opcion_demoler = sc.nextInt();
+                                                sc = new Scanner(System.in);
+                                                switch (opcion_demoler) {
+                                                    case 1:
+                                                        casas_EsperaDeml.remove(ced_i);
+                                                        lista_general.remove(ced_i);
+                                                        System.out.println("La casa fue demolido con exito!!");
+                                                        flag_demoler = false;
+                                                        break;
+                                                    case 2:
+                                                        System.out.println("No se demolio la casa.\n");
+                                                        flag_demoler = false;
+                                                        break;
+                                                    default:
+                                                        System.out.println("Ingrese una opcion valida.");
+                                                }
+                                            }
+
+                                            break;
+                                        case 5:
+                                            System.out.println();
+                                            flag_manejoEstado = false;
+                                            break;
+                                        default:
+                                            System.out.println("Ingrese una opcion valida.\n");
+                                    }
+                                    break;
+
+                                case 2:
+                                    System.out.println();
+                                    flag_manejoEstado = false;
+                                    break;
+                                default:
+                                    System.out.println("Ingrese una opcion valida.");
+                            }
+                        }
+
                     }
                     break;
+
                 case 3:
                     //Verificar el usuario
                     System.out.print("Ingrese su usuario: ");
@@ -382,5 +666,4 @@ public class Lab2_MiguelRojas {
             }
         }
     }
-
 }
