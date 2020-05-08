@@ -21,15 +21,45 @@ public class Lab2_MiguelRojas {
             System.out.println();
             switch(opcion){
                 case 1:
+                    //Validar el login
+                    if (login == false) {
+                        System.out.print("Debe ingresar a su cuenta para poder acceder a esta funcion.");
+                    } else{
+                        //TO DO: Menu Registro de Casas
+                    }
                     
                     break;
                 case 2:
+                    //Validar el login
+                    if (login == false) {
+                        System.out.print("Debe ingresar a su cuenta para poder acceder a esta funcion.");
+                    } else {
+                        //TO DO: Menu Manejo de Estados
+                    }
                     break;
                 case 3:
+                    //Verificar el usuario
+                    System.out.print("Ingrese su usuario: ");
+                    String user  = sc.next();
+                    sc = new Scanner(System.in);
+                    if (user.equals("leobanegas")) {
+                        //Verificar la Contraseña
+                        System.out.print("Ingrese su contraseña: ");
+                        String pw = sc.next();
+                        sc = new Scanner(System.in);
+                        if (pw.equals("99")) {
+                            System.out.println("Bienvenido Leonardo!!\n"
+                                    + "Ya tiene acceso a las funciones del Programa.");
+                            login = true;
+                        } else {
+                            System.out.println("La contraseña es incorrecta.\n");
+                        }
+                    } else {
+                        System.out.println("El usuario es incorrecto.\n");
+                    }
                     break;
                 case 4:
-                    break;
-                case 5:
+                    System.out.println("Fin del Programa.");
                     resp = 'n';
                     break;
                 default:
